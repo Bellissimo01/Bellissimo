@@ -551,14 +551,14 @@
     </div>
   </section>
 
-  <section class="rsvp-wrap">
+  <!-- <section class="rsvp-wrap">
     <div class="wrap reveal">
       <div class="gold-line small"></div>
       <h2 class="rsvp-title">Будем рады видеть вас<br>на нашем празднике</h2>
       <p class="rsvp-sub">Пожалуйста, подтвердите своё присутствие</p>
       <button class="gold-btn" id="rsvpOpenBtn">ПОДТВЕРДИТЬ ПРИСУТСТВИЕ</button>
     </div>
-  </section>
+  </section> -->
 
   <footer class="footer">
     <div class="wrap reveal">
@@ -571,7 +571,7 @@
 
 </div>
 
-<!-- ========================= RSVP MODAL ========================= -->
+<!-- ========================= RSVP MODAL =========================
 <div class="modal-overlay" id="rsvpOverlay">
   <div class="modal">
     <button class="modal-close" id="modalCloseBtn" aria-label="Close">✕</button>
@@ -602,7 +602,7 @@
       <p class="thanks-sub">До встречи в Bellissimo ❤️</p>
     </div>
   </div>
-</div>
+</div> -->
 
 <script>
 (function(){
@@ -727,47 +727,61 @@
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
-  /* ---------------- RSVP modal ---------------- */
-  var rsvpOverlay = document.getElementById('rsvpOverlay');
-  var rsvpOpenBtn = document.getElementById('rsvpOpenBtn');
-  var modalCloseBtn = document.getElementById('modalCloseBtn');
-  var rsvpFormEl = document.getElementById('rsvpFormEl');
-  var rsvpForm = document.getElementById('rsvpForm');
-  var rsvpThanks = document.getElementById('rsvpThanks');
+//   /* ---------------- RSVP modal ---------------- */
+//   var rsvpOverlay = document.getElementById('rsvpOverlay');
+//   var rsvpOpenBtn = document.getElementById('rsvpOpenBtn');
+//   var modalCloseBtn = document.getElementById('modalCloseBtn');
+//   var rsvpFormEl = document.getElementById('rsvpFormEl');
+//   var rsvpForm = document.getElementById('rsvpForm');
+//   var rsvpThanks = document.getElementById('rsvpThanks');
 
-  function openModal(){
-    rsvpOverlay.classList.add('open');
-    rsvpForm.style.display = 'block';
-    rsvpThanks.style.display = 'none';
-  }
-  function closeModal(){ rsvpOverlay.classList.remove('open'); }
+//   function openModal(){
+//     rsvpOverlay.classList.add('open');
+//     rsvpForm.style.display = 'block';
+//     rsvpThanks.style.display = 'none';
+//   }
+//   function closeModal(){ rsvpOverlay.classList.remove('open'); }
 
-  rsvpOpenBtn.addEventListener('click', openModal);
-  modalCloseBtn.addEventListener('click', closeModal);
-  rsvpOverlay.addEventListener('click', function(e){
-    if (e.target === rsvpOverlay) closeModal();
-  });
+//   rsvpOpenBtn.addEventListener('click', openModal);
+//   modalCloseBtn.addEventListener('click', closeModal);
+//   rsvpOverlay.addEventListener('click', function(e){
+//     if (e.target === rsvpOverlay) closeModal();
+//   });
 
-  rsvpFormEl.addEventListener('submit', function(e){
-    e.preventDefault();
-    var name = document.getElementById('rsvpName').value.trim();
-    var guests = document.getElementById('rsvpGuests').value;
-    var phone = document.getElementById('rsvpPhone').value.trim();
+//  rsvpFormEl.addEventListener('submit', async function(e){
+//     e.preventDefault();
 
-    try{
-      var entry = { name: name, guests: guests, phone: phone, ts: Date.now() };
-      var existing = [];
-      try{
-        var raw = localStorage.getItem('bellissimo_rsvps');
-        if (raw) existing = JSON.parse(raw);
-      }catch(err){ existing = []; }
-      existing.push(entry);
-      localStorage.setItem('bellissimo_rsvps', JSON.stringify(existing));
-    }catch(err){ /* storage unavailable — still show thanks */ }
+//     var name = document.getElementById('rsvpName').value.trim();
+//     var guests = document.getElementById('rsvpGuests').value;
+//     var phone = document.getElementById('rsvpPhone').value.trim();
 
-    rsvpForm.style.display = 'none';
-    rsvpThanks.style.display = 'block';
-  });
+//     try {
+//         const response = await fetch('http://localhost:3000/api/rsvp', {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify({
+//                 name: name,
+//                 guests: guests,
+//                 phone: phone
+//             })
+//         });
+
+//         const result = await response.json();
+
+//         if (result.success) {
+//             rsvpForm.style.display = 'none';
+//             rsvpThanks.style.display = 'block';
+//         } else {
+//             alert('Ошибка отправки регистрации');
+//         }
+
+//     } catch (error) {
+//         console.error(error);
+//         alert('Сервер недоступен');
+//     }
+// });
 
   /* ---------------- Ambient "music" (Web Audio, no external file) ---------------- */
   var audioCtx = null;
